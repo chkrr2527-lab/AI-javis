@@ -24,7 +24,27 @@ $("saveApi").addEventListener("click",()=>{
   localStorage.setItem("goldApiUrl",v);$("apiStatus").textContent=v?"บันทึก URL แล้ว":"ยังไม่ได้ตั้งค่า Cloud URL";
 });
 const saved=localStorage.getItem("goldApiUrl")||"";$("apiUrl").value=saved;
+$("setupKey").value=sessionStorage.getItem("goldSetupKey")||"";
 if(saved)$("apiStatus").textContent="บันทึก URL แล้ว (ยังไม่ได้ทดสอบการเชื่อมต่อ)";
+$("testTelegram").addEventListener("click",async()=>{
+  const base=$("apiUrl").value.trim().replace(/\\/+$/,"");
+  const key=$("setupKey").value.trim();
+  $("telegramStatus").textContent="กำลังทดสอบ...";
+  if(!base || !key){$("telegramStatus").textContent="กรุณาใส่ Cloud Worker URL และ Setup Key ก่อน";return;}
+  try{
+    const res=await fetch(base+"/api/telegram/test",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer "+key},
+      body:JSON.stringify({message:"✅ Personal Gold AI: เชื่อมต่อ Telegram สำเร็จแล้ว"})
+    });
+    const data=await res.json();
+    if(!res.ok || !data.ok) throw new Error(data.error||"HTTP "+res.status);
+    sessionStorage.setItem("goldSetupKey",key);
+    localStorage.setItem("goldApiUrl",base);
+    $("apiStatus").textContent="เชื่อมต่อ Cloud Worker แล้ว";
+    $("telegramStatus").textContent="ส่งข้อความทดสอบสำเร็จ ตรวจสอบ Telegram ได้เลย";
+  }catch(e){$("telegramStatus").textContent="ทดสอบไม่สำเร็จ: "+e.message;}
+});
 $("connection").textContent=navigator.onLine?"ออนไลน์ · ยังไม่เชื่อม Feed":"ออฟไลน์";
 $("connection").className="pill "+(navigator.onLine?"gold":"muted");
 window.addEventListener("online",()=>{$("connection").textContent="ออนไลน์ · ยังไม่เชื่อม Feed";});
