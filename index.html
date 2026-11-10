@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0d12">
+  <title>Personal Gold AI</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="gold-dot"></span><div><b>PERSONAL GOLD AI</b><small>XAUUSD · SMART MONEY ANALYZER</small></div></div>
+  <span id="connection" class="pill muted">กำลังตรวจระบบ</span>
+</header>
+
+<main>
+  <section class="hero panel">
+    <div>
+      <p class="eyebrow">MARKET WORKSPACE</p>
+      <h1>Gold Market Overview</h1>
+      <p class="sub">หน้าจอวิเคราะห์ทองคำบนมือถือ · ไม่ส่งคำสั่งซื้อขายอัตโนมัติ</p>
+    </div>
+    <div class="symbol-row">
+      <label for="symbol">สัญลักษณ์</label>
+      <input id="symbol" value="TVC:XAUUSD" maxlength="32">
+      <label for="tf">Timeframe</label>
+      <select id="tf"><option value="1">M1</option><option value="5">M5</option><option value="15">M15</option><option value="60">H1</option></select>
+      <button id="loadChart" class="btn secondary">เปิดกราฟ</button>
+    </div>
+  </section>
+
+  <section class="grid2">
+    <article class="panel stat"><small>DATA SOURCE</small><b id="dataSource">TradingView Widget</b><span class="muted">แสดงกราฟ ไม่ได้ส่ง OHLC เข้า AI</span></article>
+    <article class="panel stat"><small>ANALYSIS MODE</small><b>WAIT FOR VERIFIED DATA</b><span class="muted">ยังไม่มีสัญญาณอัตโนมัติ</span></article>
+  </section>
+
+  <section class="panel">
+    <div class="section-head"><div><p class="eyebrow">LIVE CHART</p><h2>กราฟ XAUUSD</h2></div><span class="pill gold">TVC · TradingView</span></div>
+    <div id="tv-chart" class="chart"><div class="chart-placeholder">กำลังโหลดกราฟ TradingView…</div></div>
+    <p class="hint">หากสัญลักษณ์ TVC:XAUUSD ไม่แสดง ให้ตรวจสอบชื่อสัญลักษณ์ใน TradingView แล้วแก้ในช่องสัญลักษณ์ด้านบน ระบบจะไม่ดึงข้อมูลจากหน้าเว็บ TradingView</p>
+  </section>
+
+  <section class="panel">
+    <p class="eyebrow">MANUAL ANALYSIS INPUT</p>
+    <h2>ส่งข้อมูลให้ AI วิเคราะห์</h2>
+    <p class="sub">ระยะเริ่มต้น ใช้ภาพหน้าจอกราฟหรือคัดลอก OHLC จากแหล่งที่คุณมีสิทธิ์ใช้งาน แล้วส่งพร้อม Prompt นี้ใน ChatGPT</p>
+    <label for="notes">ข้อมูลเพิ่มเติม (ราคา / โครงสร้าง / สิ่งที่สังเกต)</label>
+    <textarea id="notes" rows="4" placeholder="เช่น XAUUSD, M1; ราคา ณ เวลา…; H1 ขาขึ้น, M15 ใกล้ Supply…"></textarea>
+    <button id="copyPrompt" class="btn primary">คัดลอก Prompt วิเคราะห์ทองคำ</button>
+    <p id="copyStatus" class="hint" aria-live="polite"></p>
+  </section>
+
+  <section class="grid2">
+    <article class="panel">
+      <p class="eyebrow">ALERT CHANNEL</p><h2>Telegram</h2>
+      <p class="sub">ยังไม่เชื่อมต่อ Bot จนกว่าจะตั้งค่า Cloud Worker และ Token อย่างปลอดภัย</p>
+      <span class="pill muted">ยังไม่ตั้งค่า</span>
+    </article>
+    <article class="panel">
+      <p class="eyebrow">CLOUD BACKEND</p><h2>API Status</h2>
+      <p id="apiStatus" class="sub">ยังไม่ได้ตั้งค่า Cloud URL</p>
+      <label for="apiUrl">Cloud Worker URL</label>
+      <input id="apiUrl" type="url" placeholder="https://ชื่อ-worker.ชื่อบัญชี.workers.dev">
+      <button id="saveApi" class="btn secondary">บันทึก URL ในเครื่องนี้</button>
+    </article>
+  </section>
+
+  <section class="panel warning">
+    <b>ข้อจำกัดของรุ่นเริ่มต้น</b>
+    <p>หน้านี้เป็นโครงงานเริ่มต้น ไม่ได้อ้างว่ามีราคา Tick แบบ Real-time หรือ AI วิเคราะห์อัตโนมัติแล้ว การวิเคราะห์ต้องใช้ข้อมูลจริงที่มีเวลาและแหล่งที่มาชัดเจน ห้ามใช้ตัวเลขตัวอย่างเป็นสัญญาณเทรด</p>
+  </section>
+</main>
+<footer>PERSONAL GOLD AI · BUILD 0.1.0 · MOBILE FIRST</footer>
+<script src="./app.js"></script>
+</body>
+</html>
