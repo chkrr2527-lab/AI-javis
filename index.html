@@ -63,6 +63,10 @@
       <label for="apiUrl">Cloud Worker URL</label>
       <input id="apiUrl" type="url" placeholder="https://ชื่อ-worker.ชื่อบัญชี.workers.dev">
       <button id="saveApi" class="btn secondary">บันทึก URL ในเครื่องนี้</button>
+      <label for="setupKey">Setup Key (เก็บเฉพาะในเครื่องนี้)</label>
+      <input id="setupKey" type="password" autocomplete="off" placeholder="ใส่ Setup Key ที่ตั้งใน Cloudflare">
+      <button id="testTelegram" class="btn primary">ทดสอบส่งข้อความ Telegram</button>
+      <p id="telegramStatus" class="hint" aria-live="polite"></p>
     </article>
   </section>
 
