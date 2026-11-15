@@ -52,5 +52,7 @@ connection();
 window.addEventListener("online", connection);
 window.addEventListener("offline", connection);
 if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
-  navigator.serviceWorker.register("./sw.js").catch(err => console.warn("Service worker:", err));
+  navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" })
+    .then(registration => registration.update())
+    .catch(err => console.warn("Service worker:", err));
 }
