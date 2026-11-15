@@ -4,78 +4,102 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0d12">
-  <title>Personal Gold AI</title>
+  <meta name="description" content="AI chart scanner for XAUUSD. Upload or capture a chart and prepare a professional trading analysis.">
+  <title>Trading Vision AI Pro</title>
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <header class="topbar">
-  <div class="brand"><span class="gold-dot"></span><div><b>PERSONAL GOLD AI</b><small>XAUUSD · SMART MONEY ANALYZER</small></div></div>
+  <a class="brand" href="./" aria-label="Trading Vision home"><span class="brand-mark">TV</span><span><b>TRADING VISION</b><small>AI PRO · CHART INTELLIGENCE</small></span></a>
   <span id="connection" class="pill muted">กำลังตรวจระบบ</span>
 </header>
-
 <main>
   <section class="hero panel">
-    <div>
-      <p class="eyebrow">MARKET WORKSPACE</p>
-      <h1>Gold Market Overview</h1>
-      <p class="sub">หน้าจอวิเคราะห์ทองคำบนมือถือ · ไม่ส่งคำสั่งซื้อขายอัตโนมัติ</p>
+    <div class="hero-copy">
+      <p class="eyebrow">AI-POWERED MARKET ANALYSIS</p>
+      <h1>See the chart.<br><em>Read the market.</em></h1>
+      <p class="sub">ผู้ช่วยวิเคราะห์กราฟทองคำด้วยภาพ พร้อมเตรียมเชื่อมข้อมูลตลาดจริง</p>
+      <div class="hero-tags"><span> XAUUSD FIRST</span><span> IMAGE + LIVE DATA</span><span>NO AUTO-TRADING</span></div>
     </div>
-    <div class="symbol-row">
-      <label for="symbol">สัญลักษณ์</label>
-      <input id="symbol" value="TVC:XAUUSD" maxlength="32">
-      <label for="tf">Timeframe</label>
-      <select id="tf"><option value="1">M1</option><option value="5">M5</option><option value="15">M15</option><option value="60">H1</option></select>
-      <button id="loadChart" class="btn secondary">เปิดกราฟ</button>
+    <div class="hero-orb" aria-hidden="true"><span>AI</span><i></i></div>
+  </section>
+
+  <section class="section-block">
+    <div class="section-title"><div><p class="eyebrow">01 · CHART SCANNER</p><h2>สแกนภาพกราฟ</h2></div><span class="step">STEP 01</span></div>
+    <div class="panel scanner">
+      <div class="upload-zone" id="dropZone">
+        <div class="upload-icon">＋</div>
+        <b>เพิ่มภาพกราฟที่ต้องการวิเคราะห์</b>
+        <p class="sub">เลือกภาพจากเครื่อง หรือเปิดกล้องถ่ายกราฟโดยตรง</p>
+        <div class="upload-actions">
+          <button type="button" class="btn primary" id="pickImage">เลือกรูปจากเครื่อง</button>
+          <button type="button" class="btn secondary" id="takePhoto">เปิดกล้องถ่ายภาพ</button>
+        </div>
+        <input id="galleryInput" type="file" accept="image/*" hidden>
+        <input id="cameraInput" type="file" accept="image/*" capture="environment" hidden>
+        <small class="hint">รองรับ JPG, PNG และ WEBP · แนะนำภาพที่เห็นชื่อสินทรัพย์ Timeframe และราคาอย่างชัดเจน</small>
+      </div>
+      <div id="previewWrap" class="preview-wrap" hidden>
+        <div class="preview-head"><b>ภาพที่เลือก</b><button type="button" id="removeImage" class="text-btn">ลบภาพ ×</button></div>
+        <img id="imagePreview" alt="ตัวอย่างภาพกราฟที่เลือก">
+        <div id="imageMeta" class="hint"></div>
+      </div>
     </div>
   </section>
 
-  <section class="grid2">
-    <article class="panel stat"><small>DATA SOURCE</small><b id="dataSource">TradingView Widget</b><span class="muted">แสดงกราฟ ไม่ได้ส่ง OHLC เข้า AI</span></article>
-    <article class="panel stat"><small>ANALYSIS MODE</small><b>WAIT FOR VERIFIED DATA</b><span class="muted">ยังไม่มีสัญญาณอัตโนมัติ</span></article>
+  <section class="section-block">
+    <div class="section-title"><div><p class="eyebrow">02 · MARKET CONTEXT</p><h2>ข้อมูลประกอบการวิเคราะห์</h2></div><span class="step">STEP 02</span></div>
+    <div class="panel">
+      <div class="form-grid">
+        <label>สินทรัพย์
+          <select id="symbol"><option value="XAUUSD">XAUUSD · Gold</option></select>
+        </label>
+        <label>Timeframe ในภาพ
+          <select id="timeframe"><option>M1</option><option>M5</option><option>M15</option><option>M30</option><option>H1</option><option>H4</option><option>D1</option><option>ไม่ทราบ</option></select>
+        </label>
+        <label>รูปแบบการเทรด
+          <select id="tradeStyle"><option value="professional">Professional · วิเคราะห์เต็มระบบ</option><option value="scalping">Scalping · เข้าออกเร็ว</option><option value="swing">Swing · ถือรอบใหญ่</option></select>
+        </label>
+        <label>ราคาปัจจุบัน (ถ้าทราบ)
+          <input id="currentPrice" inputmode="decimal" placeholder="กรอกเฉพาะเมื่อมีราคาจริง">
+        </label>
+      </div>
+      <label class="full-label" for="notes">รายละเอียดเพิ่มเติม</label>
+      <textarea id="notes" rows="3" placeholder="เช่น มีภาพ H1 และ M15 เพิ่มเติม, ราคา ณ เวลา..., ต้องการหาแผน Buy/Sell..."></textarea>
+      <div class="privacy-note"><span>◇</span><span>ภาพจะแสดงตัวอย่างในเครื่องก่อนส่งวิเคราะห์ รุ่นนี้ยังไม่อัปโหลดภาพไปยัง AI โดยอัตโนมัติ</span></div>
+    </div>
   </section>
 
-  <section class="panel">
-    <div class="section-head"><div><p class="eyebrow">LIVE CHART</p><h2>กราฟ XAUUSD</h2></div><span class="pill gold">TVC · TradingView</span></div>
-    <div id="tv-chart" class="chart"><div class="chart-placeholder">กำลังโหลดกราฟ TradingView…</div></div>
-    <p class="hint">หากสัญลักษณ์ TVC:XAUUSD ไม่แสดง ให้ตรวจสอบชื่อสัญลักษณ์ใน TradingView แล้วแก้ในช่องสัญลักษณ์ด้านบน ระบบจะไม่ดึงข้อมูลจากหน้าเว็บ TradingView</p>
+  <section class="section-block">
+    <div class="section-title"><div><p class="eyebrow">03 · ANALYSIS ENGINE</p><h2>ขอบเขตการวิเคราะห์</h2></div><span class="step">STEP 03</span></div>
+    <div class="panel analysis-list">
+      <div><span class="analysis-icon">↗</span><span><b>Trend & Structure</b><small>Trend, HH/HL, LH/LL, BOS, CHOCH, MSS</small></span><span class="check">✓</span></div>
+      <div><span class="analysis-icon">⌖</span><span><b>Smart Money Concepts</b><small>Supply/Demand, OB, FVG, Liquidity Sweep</small></span><span class="check">✓</span></div>
+      <div><span class="analysis-icon">▥</span><span><b>Price Action & Indicators</b><small>Candlestick, EMA, RSI, MACD, Bollinger Bands</small></span><span class="check">✓</span></div>
+      <div><span class="analysis-icon">◈</span><span><b>Trade & Risk Plan</b><small>Entry, Stop Loss, TP1/TP2, Risk/Reward</small></span><span class="check">✓</span></div>
+    </div>
+    <button id="analyzeBtn" class="btn analyze-btn" disabled>วิเคราะห์ภาพด้วย AI <span>→</span></button>
+    <p id="scanStatus" class="status-text" role="status">เลือกภาพกราฟก่อน เพื่อเตรียมส่งวิเคราะห์</p>
   </section>
 
-  <section class="panel">
-    <p class="eyebrow">MANUAL ANALYSIS INPUT</p>
-    <h2>ส่งข้อมูลให้ AI วิเคราะห์</h2>
-    <p class="sub">ระยะเริ่มต้น ใช้ภาพหน้าจอกราฟหรือคัดลอก OHLC จากแหล่งที่คุณมีสิทธิ์ใช้งาน แล้วส่งพร้อม Prompt นี้ใน ChatGPT</p>
-    <label for="notes">ข้อมูลเพิ่มเติม (ราคา / โครงสร้าง / สิ่งที่สังเกต)</label>
-    <textarea id="notes" rows="4" placeholder="เช่น XAUUSD, M1; ราคา ณ เวลา…; H1 ขาขึ้น, M15 ใกล้ Supply…"></textarea>
-    <button id="copyPrompt" class="btn primary">คัดลอก Prompt วิเคราะห์ทองคำ</button>
-    <p id="copyStatus" class="hint" aria-live="polite"></p>
+  <section class="section-block">
+    <div class="section-title"><div><p class="eyebrow">04 · MARKET DATA</p><h2>ข้อมูลราคาตลาด</h2></div><span class="pill muted">ยังไม่เชื่อมต่อ</span></div>
+    <div class="panel data-panel">
+      <div class="data-symbol"><span class="gold-dot"></span><div><b>XAUUSD</b><small>Gold Spot · USD</small></div><span class="data-state">FEED NOT CONNECTED</span></div>
+      <p class="sub">ระบบจะไม่แสดงราคาจำลอง เราจะเชื่อมต่อผู้ให้บริการข้อมูลราคาจริงที่ได้รับอนุญาตในขั้นตอนถัดไป</p>
+      <div class="data-foot"><span>ราคา: —</span><span>อัปเดตล่าสุด: —</span></div>
+    </div>
   </section>
 
-  <section class="grid2">
-    <article class="panel">
-      <p class="eyebrow">ALERT CHANNEL</p><h2>Telegram</h2>
-      <p class="sub">ยังไม่เชื่อมต่อ Bot จนกว่าจะตั้งค่า Cloud Worker และ Token อย่างปลอดภัย</p>
-      <span class="pill muted">ยังไม่ตั้งค่า</span>
-    </article>
-    <article class="panel">
-      <p class="eyebrow">CLOUD BACKEND</p><h2>API Status</h2>
-      <p id="apiStatus" class="sub">ยังไม่ได้ตั้งค่า Cloud URL</p>
-      <label for="apiUrl">Cloud Worker URL</label>
-      <input id="apiUrl" type="url" placeholder="https://ชื่อ-worker.ชื่อบัญชี.workers.dev">
-      <button id="saveApi" class="btn secondary">บันทึก URL ในเครื่องนี้</button>
-      <label for="setupKey">Setup Key (เก็บเฉพาะในเครื่องนี้)</label>
-      <input id="setupKey" type="password" autocomplete="off" placeholder="ใส่ Setup Key ที่ตั้งใน Cloudflare">
-      <button id="testTelegram" class="btn primary">ทดสอบส่งข้อความ Telegram</button>
-      <p id="telegramStatus" class="hint" aria-live="polite"></p>
-    </article>
+  <section class="section-block">
+    <div class="section-title"><div><p class="eyebrow">05 · TRADE REPORT</p><h2>ผลการวิเคราะห์</h2></div><span class="pill gold">AWAITING AI</span></div>
+    <div class="panel report-empty"><div class="report-symbol">◎</div><b>พร้อมรับผลวิเคราะห์</b><p class="sub">เมื่อเชื่อม Vision AI และข้อมูลตลาดจริงแล้ว รายงานจะปรากฏในส่วนนี้</p><div class="report-grid"><span>BIAS<strong>—</strong></span><span>ENTRY<strong>—</strong></span><span>STOP LOSS<strong>—</strong></span><span>TAKE PROFIT<strong>—</strong></span><span>RISK / REWARD<strong>—</strong></span><span>SETUP<strong>WAIT</strong></span></div></div>
   </section>
 
-  <section class="panel warning">
-    <b>ข้อจำกัดของรุ่นเริ่มต้น</b>
-    <p>หน้านี้เป็นโครงงานเริ่มต้น ไม่ได้อ้างว่ามีราคา Tick แบบ Real-time หรือ AI วิเคราะห์อัตโนมัติแล้ว การวิเคราะห์ต้องใช้ข้อมูลจริงที่มีเวลาและแหล่งที่มาชัดเจน ห้ามใช้ตัวเลขตัวอย่างเป็นสัญญาณเทรด</p>
-  </section>
+  <section class="disclaimer">TRADING VISION AI PRO · DEVELOPMENT BUILD 0.2.0<br>เครื่องมือช่วยวิเคราะห์ ไม่ใช่คำแนะนำการลงทุน และไม่ส่งคำสั่งซื้อขายอัตโนมัติ</section>
 </main>
-<footer>PERSONAL GOLD AI · BUILD 0.1.0 · MOBILE FIRST</footer>
+<nav class="bottom-nav"><a class="active" href="#top">⌂<small>Home</small></a><a href="#dropZone">▧<small>Scan</small></a><a href="#analysis-list">⌁<small>Analysis</small></a><a href="#report">◷<small>History</small></a></nav>
 <script src="./app.js"></script>
 </body>
 </html>
