@@ -1,10 +1,10 @@
 {
-  "name": "Personal Gold AI",
-  "short_name": "Gold AI",
+  "name": "Trading Vision AI Pro",
+  "short_name": "Trading Vision",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0b0d12",
-  "theme_color": "#0b0d12",
-  "description": "Mobile XAUUSD analysis workspace",
-  "icons": []
+  "background_color": "#090b10",
+  "theme_color": "#090b10",
+  "description": "Professional XAUUSD chart image analysis workspace"
 }
